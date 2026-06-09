@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegis Tactical</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+
+<body>
+
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- UI Overlay -->
+        <div id="ui-layer">
+
+            <!-- MAIN HOME SCREEN (Circular Menu) -->
+            <div id="start-screen" class="screen active dashboard-screen">
+                <div class="tech-grid-bg"></div>
+                <div class="home-header">
+                    <h1 class="game-dashboard-title">VINTAGE RACER</h1>
+                    <div class="header-status-bar">
+                        <span>SYSTEM: READY</span>
+                        <span>// REVISION 3.5.2 //</span>
+                        <span>MODULE: AEGIS-X</span>
+                    </div>
+                </div>
+
+                <div class="main-command-center">
+                    <!-- PLAYER 1 MODULE (Grid) -->
+                    <div class="orbital-module left">
+                        <button id="p1-config-btn" class="halo-btn secondary">
+                            <div class="halo-ring outer"></div>
+                            <div class="halo-ring inner"></div>
+                            <div class="halo-core">
+                                <div class="icon-grid"></div>
+                            </div>
+                            <span class="halo-label">MODULE_P1</span>
+                        </button>
+                    </div>
+
+                    <!-- CENTRAL LAUNCH MODULE (Play) -->
+                    <div class="orbital-module center">
+                        <button id="start-btn" class="halo-btn primary">
+                            <div class="halo-ring outer glowing"></div>
+                            <div class="halo-ring mid"></div>
+                            <div class="halo-ring inner"></div>
+                            <div class="halo-dashed-circle"></div>
+                            <div class="halo-core accent">
+                                <div class="icon-play"></div>
+                            </div>
+                            <span class="halo-label highlight">LAUNCH SYNC</span>
+                        </button>
+                    </div>
+
+                    <!-- PLAYER 2 MODULE (List) -->
+                    <div class="orbital-module right">
+                        <button id="p2-config-btn" class="halo-btn secondary">
+                            <div class="halo-ring outer"></div>
+                            <div class="halo-ring inner"></div>
+                            <div class="halo-core">
+                                <div class="icon-grid"></div>
+                            </div>
+                            <span class="halo-label">MODULE_P2</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="footer-hint">SELECT MODULE TO BEGIN // INITIATE SYSTEM SYNC</div>
+            </div>
+
+            <!-- PLAYER 1 CUSTOMIZATION SCREEN -->
+            <div id="p1-custom-screen" class="screen hidden side-config-screen">
+                <div class="preview-lens"></div>
+                <div class="config-panel right-panel">
+                    <div class="panel-header">
+                        <button class="back-btn" data-target="start-screen">← BACK</button>
+                        <h2>PLAYER 1 MODULE</h2>
+                    </div>
+                    <div class="dash-card">
+                        <span class="card-label">CHASSIS CORE</span>
+                        <div class="options-vertical" id="p1-chassis-options">
+                            <button class="choice-btn active" data-player="1" data-type="hotrod">HOT ROD</button>
+                            <button class="choice-btn" data-player="1" data-type="striker">STRIKER-X (PX)</button>
+                            <button class="choice-btn" data-player="1" data-type="muscle">HEAVY MUSCLE</button>
+                            <button class="choice-btn" data-player="1" data-type="phantom">PHANTOM SPECTER ✦</button>
+                            <button class="choice-btn" data-player="1" data-type="aerowing">AEROWING JET</button>
+                            <button class="choice-btn" data-player="1" data-type="cyber">CYBER APEX</button>
+                        </div>
+                    </div>
+                    <div class="dash-card">
+                        <span class="card-label">PRIMARY CORE</span>
+                        <div class="color-options-grid primary-colors" id="p1-primary-options">
+                            <button class="color-btn active" data-player="1" data-type="primary" data-color="#242628"
+                                style="--p:#242628;"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#602325"
+                                style="--p:#602325;"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#ede0c6"
+                                style="--p:#ede0c6;"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#324054"
+                                style="--p:#324054;"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#deac62"
+                                style="--p:#deac62;"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#d92e2e"
+                                style="--p:#d92e2e;"></button>
+                            <!-- Added Primary Colors -->
+
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#1d3557"
+                                style="--p:#1d3557;" title="Navy Blue"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#5ba8ce"
+                                style="--p:#5ba8ce;" title="Sky Blue"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#e3dbd5"
+                                style="--p:#e3dbd5;" title="Sand Beige"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#546883"
+                                style="--p:#546883;" title="Slate Blue"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#d9722e"
+                                style="--p:#d9722e;" title="Rust Orange"></button>
+                            <!-- Additional Custom Colors -->
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#2e643c"
+                                style="--p:#2e643c;" title="Forest Green"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#f4f0e0"
+                                style="--p:#f4f0e0;" title="Cream White"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#545c99"
+                                style="--p:#545c99;" title="Lavender Slate"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#94a858"
+                                style="--p:#94a858;" title="Sage Green"></button>
+                            <button class="color-btn" data-player="1" data-type="primary" data-color="#183e80"
+                                style="--p:#183e80;" title="Deep Indigo"></button>
+                        </div>
+                    </div>
+                    <div class="dash-card">
+                        <span class="card-label">SECONDARY CORE</span>
+                        <div class="color-options-grid secondary-colors" id="p1-secondary-options">
+                            <button class="color-btn active" data-player="1" data-type="secondary" data-color="#7b383a"
+                                style="--p:#7b383a;"></button>
+                            <button class="color-btn" data-player="1" data-type="secondary" data-color="#dbd3c3"
+                                style="--p:#dbd3c3;"></button>
+                            <button class="color-btn" data-player="1" data-type="secondary" data-color="#606d79"
+                                style="--p:#606d79;"></button>
+                            <button class="color-btn" data-player="1" data-type="secondary" data-color="#2c3540"
+                                style="--p:#2c3540;"></button>
+                            <button class="color-btn" data-player="1" data-type="secondary" data-color="#161c24"
+                                style="--p:#161c24;"></button>
+                            <button class="color-btn" data-player="1" data-type="secondary" data-color="#857047"
+                                style="--p:#857047;"></button>
+                            <button class="color-btn" data-player="1" data-type="secondary" data-color="#3b1d1d"
+                                style="--p:#3b1d1d;"></button>
+                            <button class="color-btn" data-player="1" data-type="secondary" data-color="#161616"
+                                style="--p:#161616;"></button>
+                            <button class="color-btn" data-player="1" data-type="secondary" data-color="#f4d35e"
+                                style="--p:#f4d35e;"></button>
+                            <button class="color-btn" data-player="1" data-type="secondary" data-color="#e0b12a"
+                                style="--p:#e0b12a;"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PLAYER 2 CUSTOMIZATION SCREEN -->
+            <div id="p2-custom-screen" class="screen hidden side-config-screen">
+                <div class="preview-lens"></div>
+                <div class="config-panel right-panel">
+                    <div class="panel-header">
+                        <button class="back-btn" data-target="start-screen">← BACK</button>
+                        <h2>PLAYER 2 MODULE</h2>
+                    </div>
+                    <div class="dash-card">
+                        <span class="card-label">CHASSIS CORE</span>
+                        <div class="options-vertical" id="p2-chassis-options">
+                            <button class="choice-btn" data-player="2" data-type="hotrod">HOT ROD</button>
+                            <button class="choice-btn active" data-player="2" data-type="striker">STRIKER-X</button>
+                            <button class="choice-btn" data-player="2" data-type="muscle">HEAVY MUSCLE</button>
+                            <button class="choice-btn" data-player="2" data-type="phantom">PHANTOM</button>
+                            <button class="choice-btn" data-player="2" data-type="cyber">CYBER APEX</button>
+                            <button class="choice-btn" data-player="2" data-type="aerowing">AEROWING JET</button>
+                        </div>
+                    </div>
+                    <div class="dash-card">
+                        <span class="card-label">PRIMARY CORE</span>
+                        <div class="color-options-grid primary-colors" id="p2-primary-options">
+                            <button class="color-btn active" data-player="2" data-type="primary" data-color="#242628"
+                                style="--p:#242628;"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#602325"
+                                style="--p:#602325;"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#ede0c6"
+                                style="--p:#ede0c6;"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#324054"
+                                style="--p:#324054;"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#deac62"
+                                style="--p:#deac62;"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#d92e2e"
+                                style="--p:#d92e2e;"></button>
+                            <!-- Added Primary Colors -->
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#aad841"
+                                style="--p:#aad841;" title="Tactical Lime"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#1d3557"
+                                style="--p:#1d3557;" title="Navy Blue"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#5ba8ce"
+                                style="--p:#5ba8ce;" title="Sky Blue"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#e3dbd5"
+                                style="--p:#e3dbd5;" title="Sand Beige"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#546883"
+                                style="--p:#546883;" title="Slate Blue"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#d9722e"
+                                style="--p:#d9722e;" title="Rust Orange"></button>
+                            <!-- Additional Custom Colors -->
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#2e643c"
+                                style="--p:#2e643c;" title="Forest Green"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#f4f0e0"
+                                style="--p:#f4f0e0;" title="Cream White"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#545c99"
+                                style="--p:#545c99;" title="Lavender Slate"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#94a858"
+                                style="--p:#94a858;" title="Sage Green"></button>
+                            <button class="color-btn" data-player="2" data-type="primary" data-color="#183e80"
+                                style="--p:#183e80;" title="Deep Indigo"></button>
+                        </div>
+                    </div>
+                    <div class="dash-card">
+                        <span class="card-label">SECONDARY CORE</span>
+                        <div class="color-options-grid secondary-colors" id="p2-secondary-options">
+                            <button class="color-btn active" data-player="2" data-type="secondary" data-color="#7b383a"
+                                style="--p:#7b383a;"></button>
+                            <button class="color-btn" data-player="2" data-type="secondary" data-color="#dbd3c3"
+                                style="--p:#dbd3c3;"></button>
+                            <button class="color-btn" data-player="2" data-type="secondary" data-color="#606d79"
+                                style="--p:#606d79;"></button>
+                            <button class="color-btn" data-player="2" data-type="secondary" data-color="#2c3540"
+                                style="--p:#2c3540;"></button>
+                            <button class="color-btn" data-player="2" data-type="secondary" data-color="#161c24"
+                                style="--p:#161c24;"></button>
+                            <button class="color-btn" data-player="2" data-type="secondary" data-color="#857047"
+                                style="--p:#857047;"></button>
+                            <button class="color-btn" data-player="2" data-type="secondary" data-color="#3b1d1d"
+                                style="--p:#3b1d1d;"></button>
+                            <button class="color-btn" data-player="2" data-type="secondary" data-color="#161616"
+                                style="--p:#161616;"></button>
+                            <button class="color-btn" data-player="2" data-type="secondary" data-color="#f4d35e"
+                                style="--p:#f4d35e;"></button>
+                            <button class="color-btn" data-player="2" data-type="secondary" data-color="#e0b12a"
+                                style="--p:#e0b12a;"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HUD (Heads Up Display) -->
+            <div id="hud" class="screen hidden">
+                <div class="hud-top left-stats">
+                    <div class="score-box">
+                        <span class="label">CORE SYNC</span>
+                        <div id="score-val">0000</div>
+                    </div>
+                    <div class="score-box" style="margin-top:10px;">
+                        <span class="label">P1 LIVES</span>
+                        <div id="p1-lives-val" style="color:var(--primary); font-weight:bold;">3</div>
+                    </div>
+                </div>
+
+                <div class="hud-center">
+                    <button id="pause-btn" class="hud-icon-btn">
+                        <div class="pause-icon-bars"></div>
+                    </button>
+                </div>
+
+                <div class="hud-top right-stats">
+                    <div class="speed-box">
+                        <span class="label">VELOCITY</span>
+                        <div id="speed-val">0</div>
+                    </div>
+                    <div class="score-box" style="margin-top:10px;">
+                        <span class="label">P2 LIVES</span>
+                        <div id="p2-lives-val" style="color:var(--accent); font-weight:bold;">3</div>
+                    </div>
+                </div>
+                <div class="controls-guide">
+                    P1: WASD | P2: ARROWS
+                </div>
+            </div>
+
+            <!-- PAUSE SCREEN (New) -->
+            <div id="pause-screen" class="screen hidden technical-menu">
+                <div class="tech-bg-diamond"></div>
+                <div class="tech-header-box">
+                    <div class="tech-marker left"></div>
+                    <h1>PAUSE</h1>
+                    <div class="tech-marker right"></div>
+                </div>
+                <div class="tech-options-box">
+                    <button id="resume-btn" class="tech-btn">RESUME</button>
+                    <button class="tech-btn dim">SETTINGS</button>
+                    <button id="pause-exit-btn" class="tech-btn">EXIT GAME</button>
+                </div>
+            </div>
+
+            <!-- GAME OVER SCREEN (Redesigned) -->
+            <div id="game-over-screen" class="screen hidden technical-menu">
+                <div class="tech-bg-diamond large"></div>
+                <div class="tech-header-box">
+                    <div class="tech-marker left"></div>
+                    <h1 class="title-loss">GAME OVER</h1>
+                    <div class="tech-marker right"></div>
+                </div>
+                <div class="tech-options-box">
+                    <button id="restart-btn" class="tech-btn highlight">RETRY MISSION</button>
+                    <button class="tech-btn dim">LOAD DATA</button>
+                    <button class="tech-btn dim">SETTINGS</button>
+                    <button id="home-btn" class="tech-btn">EXIT TO CORE</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+
+</html>
